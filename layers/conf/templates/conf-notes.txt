@@ -1,0 +1,22 @@
+# TODO = actually other layer should specify available images... given it contains them
+
+Available images:
+* jucr-image-base
+* jucr-image-test
+* jucr-image-prod
+
+Build them by running: bitbake <image>
+
+ you can use the following download and sstate cache mirror   http:// xxxxxxxxxxxxxxx vpn?
+which heavily improves fetch and build times.
+
+To activate
+
+cat << EOF >> conf/site.conf
+INHERIT += "own-mirrors"
+SOURCE_MIRROR_URL = "http://xxxxx.net/downloads/"
+SSTATE_MIRRORS = "file://.* http://xxxxx.net/sstate-cache/PATH"
+EOF
+
+To setup you own mirror ---> yo-cacher
+

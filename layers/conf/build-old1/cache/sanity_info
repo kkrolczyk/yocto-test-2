@@ -1,0 +1,4 @@
+SANITY_VERSION 1
+TMPDIR /projects/SW/starman-som/starman-v2/jucr/build/tmp-glibc
+SSTATE_DIR /opt/yocto/sstate-cache
+NATIVELSBSTRING ubuntu-22.04

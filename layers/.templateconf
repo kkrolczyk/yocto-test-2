@@ -1,0 +1,1 @@
+TEMPLATECONF=${TEMPLATECONF:-conf/templates/}

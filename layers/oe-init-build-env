@@ -1,0 +1,11 @@
+
+SRC=$PWD/upstream
+OEROOT=$SRC/openembedded-core
+if [ -e $SRC/oe-core ]; then
+    OEROOT=$SRC/openembedded-core
+fi
+
+mkdir -p "$PWD/$1"
+cp -r layers/conf "$PWD/$1"
+
+. $OEROOT/oe-init-build-env "$PWD/$1" > /dev/null

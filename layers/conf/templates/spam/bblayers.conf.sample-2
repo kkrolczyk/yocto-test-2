@@ -1,0 +1,29 @@
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+# use BSPDIR - cause yocto doesn't like .. in bblayers
+BSPDIR := "${@os.path.abspath(os.path.dirname(d.getVar('FILE', True)) + '/../..')}"
+
+# no empty lines, or stupid bb parser breaks. build dir is "top dir", for relative paths
+
+BBLAYERS ?= " \
+  ${BSPDIR}/upstream/poky/meta \
+  ${BSPDIR}/upstream/poky/meta-poky \
+  ${BSPDIR}/upstream/poky/meta-yocto-bsp \
+   ${BSPDIR}/meta-jucr-hw \
+   ${BSPDIR}/meta-jucr-sw \
+   ${BSPDIR}/meta-jucr-os \
+"
+DISABLED ?= " \
+  ${BSPDIR}/upstream/meta-freescale \
+  ${BSPDIR}/upstream/meta-freescale-3rdparty \
+  ${BSPDIR}/upstream/meta-freescale-distro \
+  ${BSPDIR}/upstream/meta-variscite-bsp-imx \
+  ${BSPDIR}/upstream/meta-variscite-sdk-imx \
+  ${BSPDIR}/upstream/meta-variscite-bsp-common \
+  ${BSPDIR}/upstream/meta-variscite-sdk-common \
+  ${BSPDIR}/upstream/meta-variscite-hab \
+"

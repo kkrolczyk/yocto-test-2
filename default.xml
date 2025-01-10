@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+	<!--
+  <remote name="gh"          fetch="ssh://git@github.com/"/>
+  <remote name="aws"         fetch="ssh://git@github.com/aws4embeddedlinux/"/>
+  <remote name="jucr"        fetch="ssh://git@github.com/jucr-io/"/>
+  <remote name="oe"          fetch="ssh://git@github.com/openembedded/"/>
+  <remote name="yocto"       fetch="https://git.yoctoproject.org/"/>
+
+  <remote name="ossystems"   fetch="ssh://git@github.com/OSSystems/"/>
+  <remote name="fsl"         fetch="ssh://git@github.com/Freescale/"  />
+
+  <remote name="imx"         fetch="ssh://git@github.com/nxp-imx/"/>
+  <remote name="variscite"   fetch="ssh://git@github.com/varigit/"/>
+  <remote name="gh"          fetch="ssh://git@github.com/"/>
+	-->
+  <remote name="gh"          fetch="https://github.com/"/>
+  <remote name="aws"         fetch="https://github.com/aws4embeddedlinux/"/>
+  <remote name="jucr"        fetch="https://github.com/jucr-io/"/>
+  <remote name="oe"          fetch="https://github.com/openembedded/"/>
+  <remote name="yocto"       fetch="https://git.yoctoproject.org/"/>
+
+  <remote name="ossystems"   fetch="https://github.com/OSSystems/"/>
+  <remote name="fsl"         fetch="https://github.com/Freescale/"  />
+
+  <remote name="imx"         fetch="https://github.com/nxp-imx/"/>
+  <remote name="variscite"   fetch="https://github.com/varigit/"/>
+
+
+  <!-- <remote name="denx"        fetch="https://source.denx.de/denx"/> if needed: hab / secureboot  -->
+  <!-- <remote name="sbabic"      fetch="ssh://git@github.com/sbabic"/> if needed: meta-swupdate  -->
+  <!-- <remote name="kraj"        fetch="ssh://git@github.com/kraj"/>   if needed: meta-clang  -->
+
+  <!-- variscite manfest pulls also lots of 'spam' from our point of view, qt, browser ect -->
+
+  <default sync-j="8" upstream="scarthgap" revision="scarthgap"/>
+
+  <project remote="gh" name="kkrolczyk/yocto-test-2" path=".self" revision="main">
+    <linkfile dest="docs" src="docs"/>
+    <linkfile dest="layers" src="layers"/>
+    <linkfile dest="README.md" src="README.md"/>
+    <linkfile dest="run.sh" src="scripts/run.sh"/>
+    <linkfile dest="upstream-modifications" src="upstream-modifications"/>
+  </project>
+
+  <!-- base stuff, without poky. meta-openembedded = "universe", openembedded-core = "lite version" -->
+  <project name="bitbake.git" path="upstream/openembedded-core/bitbake" remote="oe" revision="2.8"/>
+  <project name="openembedded-core" path="upstream/openembedded-core" remote="oe"/>
+  <project name="meta-openembedded" path="upstream/meta-openembedded" remote="oe"/>
+
+  <!-- we don't need it, but keep it for now -->
+  <project name="meta-yocto" path="upstream/meta-yocto" remote="yocto"/>
+
+  <!-- meta-aws depends on some OE stuff, contains recipe for greengrass-bin -->
+  <project name="meta-aws" path="upstream/meta-aws" remote="aws"/>
+
+
+<!-- BEG section not downloaded by default, use group to get -->
+
+  <!-- example poky layer from yocto project -->
+  <project name="poky" path="upstream/poky" remote="yocto" groups="notdefault"/>
+
+  <!-- arm related or commonly used stuff. Not used directly, but others depend on it -->
+  <project name="meta-arm" remote="yocto" path="upstream/meta-arm" groups="notdefault,arm"/>
+
+  <!-- vulnerability mgm tool that provides Yocto SBOM generation and CVE Analysis & other security related -->
+  <!--
+  <project name="meta-timesys" remote="timesys" path="upstream/meta-timesys" groups="notdefault,common"/>
+  <project name="meta-secure-imx" remote="denx" path="upstream/meta-secure-imx" groups="notdefault,imx"/>
+  <project name="meta-security" remote="yocto" path="upstream/meta-security" groups="notdefault,common"/>
+  -->
+
+  <!-- qemu ect -->
+  <project name="meta-virtualization" remote="yocto" path="upstream/meta-virtualization" groups="notdefault,common"/>
+
+  <!-- freescale stuff (used by nxp/veriscite) -->
+  <project name="fsl-community-bsp-base" remote="fsl" path="upstream/base" groups="notdefault,fsl">
+    <linkfile dest="setup-environment" src="setup-environment"/>
+  </project>
+  <!-- notice: meta-fsl-arm is depreciated some years ago, don't use it anywhere -->
+  <project name="meta-freescale" remote="fsl" path="upstream/meta-freescale" groups="notdefault,fsl"/>
+  <project name="meta-freescale-3rdparty" remote="fsl" path="upstream/meta-freescale-3rdparty" groups="notdefault,fsl"/>
+  <project name="meta-freescale-distro" remote="fsl" path="upstream/meta-freescale-distro" groups="notdefault,fsl"/>
+
+  <project name="fsl-community-bsp-base" remote="fsl" path="upstream/meta-freescale-community-bsp-base" groups="notdefault,fslc"/>
+  <project name="fsl-community-bsp-platform" remote="fsl" path="upstream/meta-freescale-community-bsp-platform" groups="notdefault,fslc"/>
+
+  <!-- imx stuff, nxp and freescale merged in 2015 -->
+  <project name="meta-imx" remote="imx" path="upstream/meta-imx" revision="refs/tags/rel_imx_6.6.36_2.1.0" upstream="scarthgap-6.6.36-2.1.0" groups="notdefault,imx"/>
+
+  <!-- variscite stuff -->
+
+  <!-- extremly outdated
+  <project remote="variscite" name="meta-variscite-fslc" path="upstream/meta-variscite-fslc" groups="notdefault,var1"/> -->
+
+  <project name="meta-variscite-bsp-common" remote="variscite" path="upstream/meta-variscite-bsp-common" revision="scarthgap_6.6.23-2.0.0_var01" groups="notdefault,var,varbsp"/>
+  <project name="meta-variscite-bsp-imx"    remote="variscite" path="upstream/meta-variscite-bsp-imx"    revision="scarthgap_6.6.23-2.0.0_var01" groups="notdefault,var,varbsp"/>
+  <project name="meta-variscite-sdk-common" remote="variscite" path="upstream/meta-variscite-sdk-common" revision="scarthgap_6.6.23-2.0.0_var01" groups="notdefault,var,varsdk"/>
+  <project name="meta-variscite-sdk-imx"    remote="variscite" path="upstream/meta-variscite-sdk-imx"    revision="scarthgap_6.6.23-2.0.0_var01" groups="notdefault,var,varsdk">
+    <linkfile src="scripts/var-setup-release.sh" dest="var-setup-release.sh"/>
+  </project>
+  <project name="variscite-bsp-base"        remote="variscite" path="upstream/var-base"                  revision="scarthgap_6.6.23-2.0.0_var01" groups="notdefault,var,varscripts" >
+    <linkfile src="setup-environment"              dest="setup-environment"/>
+    <linkfile src="README"                         dest="README"/>
+    <linkfile src="scripts/var-start-container.sh" dest="var-start-container.sh"/>
+  </project>
+
+  <!-- unlikely to be currently needed at all, unless to experiment
+  <project name="meta-variscite-hab"        remote="variscite" path="upstream/meta-variscite-hab"        revision="scarthgap_6.6.23-2.0.0_var01" groups="notdefault,var,hab"/>
+  <project name="meta-secure-imx"           remote="denx"      path="upstream/meta-secure-imx"           revision="philip/scarthgap" groups="notdefault,hab"/>
+  -->
+
+<!-- END section not downloaded by default -->
+
+</manifest>

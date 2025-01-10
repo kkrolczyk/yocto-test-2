@@ -1,0 +1,2 @@
+https://github.com/kkrolczyk/yocto-test.git
+ /projects/SW/starman-som/starman-v2/test/.repo/repo/repo init -u ssh://git@github.com/kkrolczyk/yocto-test.git
